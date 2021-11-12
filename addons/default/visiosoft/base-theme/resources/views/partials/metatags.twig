@@ -11,6 +11,8 @@
 {% set additionalMeta = template.get('additional_meta') %}
 {{ additionalMeta ? additionalMeta|raw }}
 
+<link rel=”canonical” href=”https://{{ setting_value('streams::domain') }}“/>
+
 <title>
     {% set title = trans(template.meta_title) %}
     {% set showTitle = template.showTitle is same as(false) ? false : true %}
