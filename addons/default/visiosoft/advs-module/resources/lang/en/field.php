@@ -378,6 +378,7 @@ return [
         'name' => 'Old Price'
     ],
 	'save_search' => 'Save Search',
+    'sort_by' => 'Sort By',
     'publish_at' => [
         'name' => 'Publish Date'
     ],
@@ -387,6 +388,9 @@ return [
     'name_a_z' => 'Name (A to Z)',
     'name_z_a' => 'Name (Z to A)',
     'select_lang_ads' => 'select the language of the ads',
+
+    'view_on_map' => 'View on Map',
+    'new_project' => 'New Project',
 
     // Report
     'product_stock_report' => 'Product Stock Report',
