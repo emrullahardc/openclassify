@@ -1,0 +1,9 @@
+{
+    "name": "visiosoft/parking_code-module",
+    "type": "streams-addon",
+    "autoload": {
+        "psr-4": {
+            "Visiosoft\\ParkingCodeModule\\": "src/"
+        }
+    }
+}
