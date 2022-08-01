@@ -1,0 +1,10 @@
+{
+    "name": "visiosoft/selecttop-field_type",
+    "type": "streams-addon",
+    "autoload": {
+        "psr-4": {
+            "Visiosoft\\SelecttopFieldType\\": "src/"
+        }
+    }
+
+}

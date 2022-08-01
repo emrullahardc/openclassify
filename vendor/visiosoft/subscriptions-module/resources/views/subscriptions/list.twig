@@ -1,0 +1,53 @@
+{% extends "theme::layouts/default" %}
+{% block content %}
+    {% embed 'visiosoft.module.profile::profile/index' %}
+        {% block detail %}
+            <div class="row px-3">
+                <div class="col-md-12 bg-dark text-white p-5 row m-0">
+                    <div class="col-12 p-0">
+                        <h3>{{ trans('visiosoft.module.subscriptions::field.my_subscriptions') }}</h3>
+                        <a class="btn btn-primary"
+                           href="{{ url_route('buy-plan') }}">{{ trans('visiosoft.module.subscriptions::field.buy_new_plan') }}</a>
+                    </div>
+                </div>
+                <div class="col-md-12 m-0 py-2 mt-2 row text-white bg-secondary">
+                    <div class="col-4 font-weight-bold">
+                        {{ trans('visiosoft.module.subscriptions::field.id_plan_name') }}
+                    </div>
+                    <div class="col-2 font-weight-bold">
+                        {{ trans('visiosoft.module.subscriptions::field.trial_expires_at.name') }}
+                    </div>
+                    <div class="col-2 font-weight-bold">
+                        {{ trans('visiosoft.module.subscriptions::field.expired.name') }}
+                    </div>
+                    <div class="col-4 font-weight-bold text-center">
+                        {{ trans('visiosoft.module.subscriptions::field.actions') }}
+                    </div>
+                </div>
+                {% for subscription in getSubscriptions() %}
+                    {% set plan = findPlan(subscription.plan_id) %}
+                    <div class="col-md-12 m-0 py-2 mt-2 row bg-light {% if subscription.suspend_at %}text-danger{% endif %}">
+                        <div class="col-4">
+                            #{{ plan.id }} {{ plan.name }}{% if subscription.suspend_at %}({{ trans('visiosoft.module.subscriptions::field.suspended') }}){% endif %}
+                        </div>
+                        <div class="col-2 small">
+                            {{ subscription.trial_expires_at|date('Y/m/d H:i') }}
+                        </div>
+                        <div class="col-2 small">
+                            {{ subscription.expires_at|date('Y/m/d H:i') }}
+                        </div>
+                        <div class="col-4 text-center">
+                                <a href="{{ url_route('visiosoft.module.subscriptions::upgrade_subscription',{'id':subscription.id}) }}"
+                                   class="btn btn-outline-primary btn-xs">
+                                    {{ trans('visiosoft.module.subscriptions::button.renew') }}
+                                </a>
+                            <a href="subscription/{{ subscription.id }}/detail" class="btn btn-outline-info btn-xs">
+                                <i class="fas fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

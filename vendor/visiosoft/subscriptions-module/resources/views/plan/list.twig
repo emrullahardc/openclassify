@@ -1,0 +1,64 @@
+{% extends "theme::layouts/default" %}
+{% block content %}
+    <div class="row m-0">
+        {% for plan in plans %}
+            <div class="col-4">
+                <div class="border text-center rounded p-3 bg-light">
+                    <h3>
+                        {{ plan.name }}
+                    </h3>
+                    <div class="pt-2 bg-white features-box rounded">
+                        <ul class="list-unstyled mb-0">
+                            {% for feature in plan.feature %}
+                                <li>{{ feature.name }} {{ feature.value }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="pt-3">
+                        <h4>{{ plan.price.currency }}</h4>
+                    </div>
+
+                    {% set allSubscriptions = getSubscriptions().pluck('plan_id') %}
+
+                    {% if plan.trial_interval != "0" and plan.id not in allSubscriptions %}
+                        <a href="{{ url_route('visiosoft.module.subscriptions::action_subscription',{'id':plan.id,'type':'try'}) }}"
+                           class="btn btn-primary w-50">
+                            {{ trans('visiosoft.module.subscriptions::button.try') }}
+                        </a>
+                    {% else %}
+                        <a href="{{ url_route('visiosoft.module.subscriptions::action_subscription',{'id':plan.id,'type':'buy'}) }}"
+                           class="btn btn-primary w-50">
+                            {{ trans('visiosoft.module.subscriptions::button.buy') }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="modal" id="created-subscription-modal" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-confirm" role="document">
+            <div class="modal-content my-3">
+                <div class="modal-body text-center">
+                    <h1>
+                        <i class="fa fa-check text-success"></i>
+                    </h1>
+                    <hr>
+                    <h4 class="text-center my-2">
+                        <i class="fa fa-check text-success"></i>
+                        {{ trans('visiosoft.module.site::field.subscription_started') }}
+
+
+                    </h4>
+                    <p>{{ trans('visiosoft.module.site::field.transaction_details') }}</p>
+                    <p>{{ trans('visiosoft.module.site::field.thanks_notification') }}</p>
+                    <a href="{{ url_route('visiosoft.module.subscriptions::my-subscriptions') }}"
+                       class="btn btn-secondary"> {{ trans('visiosoft.module.site::field.close_modal') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ asset_add('scripts.js','visiosoft.module.subscriptions::js/planBuy.js') }}
+    {{ asset_add('styles.css','visiosoft.module.subscriptions::css/plan.css') }}
+
+{% endblock %}

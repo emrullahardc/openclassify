@@ -1,0 +1,44 @@
+{% extends "theme::layouts/default" %}
+{% block content %}
+    {% embed 'visiosoft.module.profile::profile/index' %}
+        {% block detail %}
+            <div class="row px-3">
+                <div class="col-md-12 bg-dark text-white p-5 row m-0">
+                    <div class="col-12 p-0  {% if subscription.suspend_at.value %} text-danger {% endif %}">
+                        <h3>
+                            #{{ subscription.id }} {{ subscription.plan.name }}
+                                <a href="{{ url_route('visiosoft.module.subscriptions::upgrade_subscription',{'id':subscription.id}) }}"
+                                   class="btn btn-outline-warning btn-sm">
+                                    {{ trans('visiosoft.module.subscriptions::button.renew') }}
+                                </a>
+                        </h3>
+                    </div>
+                    <div class="col-6 p-0 mt-2 {% if subscription.suspend_at.value %} text-danger {% endif %}">
+                        <p>
+                            {{ trans('visiosoft.module.subscriptions::field.expired.name') }}
+                            : {{ subscription.expires_at.format('Y-m-d') }}
+                        </p>
+                    </div>
+                    <div class="col-6 text-right">
+                        {% if not subscription.suspend_at.value %}
+                            <a class="btn btn-info" href="{{ url('/site/create') }}?subscription={{ subscription.id }}">
+                                {{ trans('visiosoft.module.subscriptions::field.create_new_store') }}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 p-0 bg-light text-dark rounded font-weight-bold">
+                        <ul class="list-unstyled mb-0 px-2">
+                            {% for feature in subscription.plan.feature %}
+                                <li>{{ feature.name }} {{ feature.value }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-12 row m-0 py-2 mt-2 border rounded">
+                    {{ addBlock('sites/list',{'subscription':subscription})|raw }}
+                </div>
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

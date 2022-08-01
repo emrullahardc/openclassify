@@ -1,0 +1,70 @@
+{% extends "theme::layouts/default" %}
+{% block content %}
+    <div class="row m-0 upgrade-list justify-content-center">
+        <div class="col-12 text-center my-3 border-bottom">
+            <h3 class="font-weight-bold">
+                {{ trans('visiosoft.module.subscriptions::field.please_upgrade_plan') }}
+            </h3>
+        </div>
+        {% for plan in plans %}
+            <div class="col-4">
+                <div class="border border-primary text-center rounded p-3 bg-white">
+                    <h3 class="font-weight-bold plan-name">
+                        {{ plan.name }}
+                    </h3>
+                    <div class="pt-2 features-box bg-light rounded border border-primary">
+                        <ul class="list-unstyled mb-0">
+                            {% for feature in plan.feature %}
+                                <li>{{ feature.name }} {{ feature.value }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="pt-3">
+                        <h4 class="font-weight-bold">{{ plan.price.currency }}</h4>
+                    </div>
+
+                    {% set activeSubscriptions = getSubscriptions().where('suspend_at',null).pluck('plan_id') %}
+
+                    {% if subscription.plan_id == plan.id %}
+                        <a class="btn btn-primary w-100"
+                           href="{{ url_route('visiosoft.module.subscriptions::upgrade_or_renew_subscription',{'old':subscription.id,'id':plan.id,'type':'renew'}) }}"
+                           data-subscription="{{ subscription.id }}">
+                            {{ trans('visiosoft.module.subscriptions::button.renew') }}
+                        </a>
+                    {% else %}
+                        <a class="btn btn-primary w-100"
+                           href="{{ url_route('visiosoft.module.subscriptions::upgrade_or_renew_subscription',{'old':subscription.id,'id':plan.id,'type':'upgrade'}) }}"
+                           data-subscription="{{ subscription.id }}">
+                            {{ trans('visiosoft.module.subscriptions::button.upgrade') }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="modal" id="created-subscription-modal" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-confirm" role="document">
+            <div class="modal-content my-3">
+                <div class="modal-body text-center">
+                    <h1>
+                        <i class="fa fa-check text-success"></i>
+                    </h1>
+                    <hr>
+                    <h4 class="text-center my-2">
+                        <i class="fa fa-check text-success"></i>
+                        {{ trans('visiosoft.module.site::field.subscription_started') }}
+
+
+                    </h4>
+                    <p>{{ trans('visiosoft.module.site::field.transaction_details') }}</p>
+                    <p>{{ trans('visiosoft.module.site::field.thanks_notification') }}</p>
+                    <a href="{{ url_route('visiosoft.module.subscriptions::my-subscriptions') }}"
+                       class="btn btn-secondary"> {{ trans('visiosoft.module.site::field.close_modal') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ asset_add('scripts.js','visiosoft.module.subscriptions::js/planUpgrade.js') }}
+    {{ asset_add('styles.css','visiosoft.module.subscriptions::css/plan.css') }}
+
+{% endblock %}

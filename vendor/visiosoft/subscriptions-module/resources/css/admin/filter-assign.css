@@ -1,0 +1,3 @@
+select[name=filter_assign] + .select2 {
+    min-width: 20rem;
+}

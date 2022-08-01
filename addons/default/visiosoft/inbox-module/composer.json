@@ -1,0 +1,9 @@
+{
+    "name": "visiosoft/inbox-module",
+    "type": "streams-addon",
+    "autoload": {
+        "psr-4": {
+            "Visiosoft\\InboxModule\\": "src/"
+        }
+    }
+}

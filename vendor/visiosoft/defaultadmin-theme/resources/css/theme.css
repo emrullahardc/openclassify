@@ -3549,3 +3549,19 @@ body.sidebars--static .logo {
         margin-right: 15px;
     }
 }
+.form-control::placeholder {
+color: {{ setting_value('visiosoft.theme.defaultadmin::input_placeholder_color')}} !important;
+opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+color: {{ setting_value('visiosoft.theme.defaultadmin::input_placeholder_color')}} !important;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+color: {{ setting_value('visiosoft.theme.defaultadmin::input_placeholder_color')}} !important;
+}
+
+.input-wrapper .modal {
+    z-index: 2000 !important;
+}

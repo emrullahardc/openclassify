@@ -1,0 +1,5 @@
+<a href="{{ url_route('visiosoft.module.subscriptions::my-subscriptions') }}"
+   class="px-3 link-unstyled{{ app.request.pathinfo == '/store' ? ' active' : '' }}">
+    {{ img('visiosoft.module.subscriptions::img/my_subscriptions.svg').data|raw }}
+    <p>{{ trans('visiosoft.module.subscriptions::field.my_subscriptions') }}</p>
+</a>

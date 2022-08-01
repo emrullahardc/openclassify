@@ -1,0 +1,17 @@
+{% if setting_value('visiosoft.module.customfields::openTextFilter') %}
+    {% for textField in params.text %}
+        <div class="border rounded filter-box p-3 mb-3 text-filter">
+            <div class="d-flex align-items-center justify-content-between px-2">
+                <p>{{ trans("visiosoft.module.advs::field.filter_by", {'name': textField.name}) }}</p>
+                {{ img('visiosoft.module.advs::images/listing/filter-arrow.svg').data|raw }}
+            </div>
+
+            <div class="px-3 mb-1 border-top mt-2 pt-2 {{ setting_value('visiosoft.module.customfields::openFilter') ? 'd-none' }}">
+                <div class="d-flex justify-content-around mt-3">
+                    <input type="text" class="border-0 shadow-sm rounded px-3 py-1" name="cf_{{ textField.id }}"
+                           value="{{ app.request.get('cf_' ~ textField.id) }}">
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

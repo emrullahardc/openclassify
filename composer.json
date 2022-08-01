@@ -1,7 +1,7 @@
 {
     "name": "openclassify/openclassify",
     "description": "OpenClassify is the extensible and most advanced open source classified app build with Laravel.",
-    "type": "project",
+    "type": "proct",
     "keywords": [
         "OpenClassify",
         "classified",
@@ -94,7 +94,9 @@
         "visiosoft/base-theme": "^1.0",
         "visiosoft/advs-module": "^1.0",
         "visiosoft/json-field_type": "^1.0",
-        "visiosoft/language_switcher-plugin": "^1.0"
+        "visiosoft/language_switcher-plugin": "^1.0",
+        "stripe/stripe-php": "^8.9",
+        "laravel/horizon": "^5.9"
     },
     "replace": {
         "anomaly/streams-platform": "*"
@@ -114,6 +116,10 @@
         {
             "type": "composer",
             "url": "https://community.pyrocms.com"
+        },
+        {
+            "type": "composer",
+            "url": "https://repo.openclassify.com"
         }
     ],
     "autoload": {
