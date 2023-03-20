@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="23" viewBox="0 0 22 23">
+  <g id="logout" transform="translate(-2604 -6913)">
+    <rect id="Rectangle_3992" data-name="Rectangle 3992" width="22" height="23" transform="translate(2604 6913)" fill="#fff" opacity="0"/>
+    <g id="Group_47724" data-name="Group 47724" transform="translate(1455 6815)">
+      <path id="Path_21097" data-name="Path 21097" d="M174.011,96.14a.85.85,0,0,1-.6-1.451l4.043-4.044L173.41,86.6a.85.85,0,0,1,1.2-1.2l4.644,4.645a.85.85,0,0,1,0,1.2l-4.644,4.645A.847.847,0,0,1,174.011,96.14Z" transform="translate(990.363 18.99)" fill="#bababa"/>
+      <path id="Line_828" data-name="Line 828" d="M12.384.85H0A.85.85,0,0,1-.85,0,.85.85,0,0,1,0-.85H12.384a.85.85,0,0,1,.85.85A.85.85,0,0,1,12.384.85Z" transform="translate(1156.63 109.637)" fill="#bababa"/>
+      <path id="Path_21098" data-name="Path 21098" d="M47.078,60.316H40.885a1.737,1.737,0,0,1-1.735-1.735v-17.7a1.737,1.737,0,0,1,1.735-1.735h6.194a.85.85,0,0,1,0,1.7H40.885a.035.035,0,0,0-.035.035v17.7a.035.035,0,0,0,.035.035h6.194a.85.85,0,0,1,0,1.7Z" transform="translate(1111.552 59.903)" fill="#bababa"/>
+    </g>
+  </g>
+</svg>

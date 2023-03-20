@@ -1,0 +1,95 @@
+{{ asset_style('theme::css/ocify-sidebar.css') }}
+<div id="wrapper">
+    <div class="logo-bar">
+        <div class="button-menu logo-bar-table">
+            <div class="align-middle text-center logo-bar-cell menu-action">
+                <div class="navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left: 0 !important;">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <button id="menu-toggle-2" type="button" class="button-menu-mobile web-sidebar-btn">
+                                {{ img('theme::img/menu-icon.svg').data()|raw }}
+                            </button>
+                            <button type="button" class="button-menu-mobile mobile-sidebar-btn" id="menu-toggle">
+                                {{ img('theme::img/menu-icon.svg').data()|raw }}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="align-middle text-left logo-bar-cell logo">
+                <a href="{{ url('admin') }}" class="logo variant-logo">
+                    {% if setting_value('visiosoft.theme.defaultadmin::panel_icon') %}
+                        <img src="{{ file(setting_value('visiosoft.theme.defaultadmin::panel_icon')).make.url }}"
+                             alt="site icon">
+                    {% else %}
+                        {{ img('theme::img/panel-icon.svg').data|raw }}
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="sidebar-wrapper">
+        {% include "theme::partials/search-box" %}
+        <ul class="sidebar-nav nav-stacked" id="ocify-menu">
+            {% for group_key,group in getInteractiveMenus() %}
+                <li class="sidebar-group {{ group.active ? 'active' }}">
+                    <a class="sidebar-group-link" title="{{ group.title }}" data-toggle="collapse"
+                       data-target="#{{ group_key }}M"
+                       aria-expanded="{{ group.active ? 'true' : 'false' }}">
+                        <span data-toggle="tooltip" data-placement="right" title="{{ group.title }}">
+                            <span class="icon">
+                                {% if group.icon %}
+                                    {{ img(group.icon).data|raw }}
+                                {% endif %}
+                            </span>
+                            <span class="title">{{ group.title }}</span>
+                        </span>
+                        <i class="fa fa-chevron-down chevron"></i>
+                    </a>
+                    <div class="collapse {{ group.active ? 'in' }} group-sublist" id="{{ group_key }}M" data-parent="#ocify-menu"
+                         aria-expanded="{{ group.active ? 'true' : 'false' }}">
+                        <ul class="nav-stacked sidebar-items">
+                            {% for addon_key,addon in group.addons %}
+                                <li class="nav-item sidebar-addon {{ addon.active ? 'active' }}">
+                                    <a title="{{ trans(addon.title) }}"
+                                            {% if addon.sections is not defined %}
+                                                href="{{ addon.href }}" title="{{ trans(addon.title) }}"
+                                            {% endif %}
+                                       class="sidebar-title sidebar-addon-link"
+                                       data-toggle="collapse"
+                                       aria-expanded="{{ addon.active ? 'true' : 'false' }}"
+                                       data-target="#{{ addon_key }}">
+                                        <span>
+                                            <i class="fa fa-circle"></i>
+                                            {{ trans(addon.title) }}
+                                        </span>
+                                        {% if addon.sections is defined %}
+                                            <i class="fa fa-chevron-down"></i>
+                                        {% endif %}
+                                    </a>
+                                    <div class="sidebar-sublist collapse {{ addon.active ? 'in' }} ml-2"
+                                         id="{{ addon_key }}" aria-expanded="false">
+                                        <ul class="flex-column nav">
+                                            {% if addon.sections is defined %}
+                                                {% for section in addon.sections %}
+                                                    <li class="sub-item {{ section.active ? 'active' }}">
+                                                        <a href="{{ section.href }}" title="{{ trans(section.title) }}"
+                                                           class="text-truncate sidebar-title">
+                                                            <i class="fa fa-circle"></i>
+                                                            {{ trans(section.title) }}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{{ asset_script('theme::js/ocify-sidebar.js') }}

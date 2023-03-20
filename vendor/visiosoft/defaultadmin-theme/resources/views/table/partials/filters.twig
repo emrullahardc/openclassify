@@ -1,0 +1,95 @@
+{% if not table.filters.isEmpty() %}
+    <div class="card card-container">
+        {{ form_open({'method': 'get', 'id': 'filters', 'url': url_full(), 'class': 'form-inline'}) }}
+        <input type="hidden" name="{{ table.options.prefix }}limit" value="{{ table.options.limit }}">
+        <input type="hidden" name="{{ table.options.prefix }}view" value="{{ table.views.active().getSlug() }}">
+        <input type="hidden" name="{{ table.options.prefix }}page" value="1">
+        <div class="btn btn-info dont-collapse-sm" type="button" data-toggle="collapse" data-target="#t10" aria-expanded="false">
+            {{ icon(table.options.filters.filter_icon ?: 'filter') }}
+            {{ trans(table.options.filters.filter_text ?: 'streams::button.filter') }}
+        </div>
+        <div class="" id="t10">
+            <div class="container-fluid">
+                <div class="row">
+                    {% for filter in table.filters %}
+                        <div class="col-sm-12 col-md-6 col-lg-4 px-2p" id="form-input-{{ loop.index }}">
+                            <div class="form-group filter_inputs" data-id="{{ loop.index }}">
+                                {{ filter.input|raw }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="col-sm-12 col-md-6 col-lg-4 px-2p d-flex position-relative">
+                        <button type="submit" class="btn btn-success float-left">
+                            {{ icon(table.options.filters.filter_icon ?: 'filter') }}
+                            {{ trans(table.options.filters.filter_text ?: 'streams::button.filter') }}
+                        </button>
+                        <a href="{{ url_current() }}{{ request_has('view') ? '?view=' ~ request_get('view') }}"
+                           class="btn btn-inverse  float-left ml-5p">
+                            {{ icon(table.options.filters.clear_icon ? table.options.filters.clear_icon) }}
+                            {{ trans(table.options.filters.clear_text ?: 'streams::button.clear') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_close() }}
+{% endif %}
+<script>
+    $(function () {
+        $('.filter_inputs').each(function (key, value) {
+            let id = $(value).data('id');
+            let width = $('#form-input-' + id).width();
+            let select = $(value).find('select')
+            let formInput = $('.filter_inputs > .form-control').css('width', width)
+            let name = select.attr('name');
+            let select2 = $('.select2')
+            console.log(select2.hide())
+            select.css('width', width)
+            select.css('min-width', width)
+            select2.css('width', width)
+            select2.css('min-width', width)
+            {% set width = width %}
+        })
+    })
+</script>
+<style>
+    select + .select2 {
+        min-width: 0px !important;
+    }
+
+    .form-control {
+        color: #999;
+    }
+
+    .px-2p {
+        padding: 0 2px 0 2px;
+        margin-bottom: 2px;
+    }
+
+    .dont-collapse-sm {
+        display: inline;
+        height: auto !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: -15px;
+        margin-bottom: 15px;
+    }
+    .collapse {
+        display: none;
+    }
+    @media (max-width: 768px) {
+        .collapse {
+            display: none;
+        }
+        .dont-collapse-sm {
+            position: relative;
+            display: block;
+            height: auto !important;
+            visibility: visible;
+        }
+        select, .select2, .form-control {
+            width: 100% !important;
+        }
+    }
+</style>

@@ -1,0 +1,33 @@
+<div class="gg-product-img-area col-lg-5">
+    <div class="product__carousel mt-0">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% if count(adv.files) == 0 %}
+                    <div class="swiper-slide">
+                        <a href="{{ img('visiosoft.module.advs::images/no-image.png').url }}" data-lightbox="ads-image">
+                            <img class="w-100" src="{{ img('visiosoft.module.advs::images/no-image.png').url }}" alt=""/>
+                        </a>
+                    </div>
+                {% else %}
+                    {% for image in adv.getViewPhotoUrl %}
+                        <div class="swiper-slide">
+                            <a href="{{ image }}" data-lightbox="ads-image">
+                                <img class="swiper-border w-100" src="{{ adv.getMediumPhotoUrl(image) }}" alt=""/>
+                            </a>
+                        </div>
+                        <div class="swiper-paginate-images d-none" data-img_src="{{ adv.getMediumPhotoUrl(image) }}"></div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="swiper-pagination d-flex justify-content-start align-items-baseline"></div>
+        </div>
+    </div>
+</div>
+{{ asset_add("styles.css", "visiosoft.extension.gg_style_provider::css/lightbox.min.css") }}
+{{ asset_add("scripts.js", "visiosoft.extension.gg_style_provider::js/lightbox.min.js") }}
+{{ asset_add("styles.css", "visiosoft.extension.gg_style_provider::css/swiper-bundle.min.css") }}
+{{ asset_add("slider.js", "visiosoft.extension.gg_style_provider::js/swiper-bundle.min.js") }}
+{{ asset_add("slider.js", "visiosoft.extension.gg_style_provider::js/slider.js")}}
+
+<script type="text/javascript" src="{{ asset_path('slider.js') }}"></script>

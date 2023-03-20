@@ -209,7 +209,8 @@ return [
          */
         Anomaly\Streams\Platform\StreamsServiceProvider::class,
         Sentry\Laravel\ServiceProvider::class,
-        \Fruitcake\Cors\CorsServiceProvider::class
+        \Fruitcake\Cors\CorsServiceProvider::class,
+        \Laravel\Sail\SailServiceProvider::class
     ],
 
     /*
