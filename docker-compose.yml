@@ -55,6 +55,14 @@ services:
         test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
         timeout: 5s
         retries: 10
-
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8081:80"
+    depends_on:
+      - database
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: oc
 volumes:
     db-data: ~
